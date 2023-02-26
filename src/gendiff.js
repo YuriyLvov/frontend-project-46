@@ -6,7 +6,10 @@ const runGenDiff = () => {
 
   cli
     .name('gendiff')
-    .description('Generate difference')
+    .description('Compares two configuration files and shows a difference.')
+    .option('-f, --format <type>', 'output format')
+    .arguments('<filepath1>')
+    .arguments('<filepath2>')
     .version('0.0.1');
 
   cli.parse();
