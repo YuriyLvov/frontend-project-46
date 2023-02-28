@@ -1,8 +1,6 @@
-import fs from 'fs';
-import path from 'path';
-import process from 'process';
 import { Command } from 'commander';
 import lodash from 'lodash';
+import parsers from './parsers.js';
 
 export const compareJsons = (json1, json2) => {
   const fileKeys = [...lodash.keys(json1), ...lodash.keys(json2)];
@@ -46,17 +44,10 @@ const genDiff = () => {
     .arguments('<filepath1>')
     .arguments('<filepath2>')
     .action((filepath1, filepath2) => {
-      const cwd = process.cwd();
-      const file1path = path.resolve(cwd, filepath1);
-      const file2path = path.resolve(cwd, filepath2);
+      const file1 = parsers(filepath1);
+      const file2 = parsers(filepath2);
 
-      const file1 = fs.readFileSync(file1path, { encoding: 'utf-8' });
-      const file2 = fs.readFileSync(file2path, { encoding: 'utf-8' });
-
-      const file1json = JSON.parse(file1);
-      const file2json = JSON.parse(file2);
-
-      const result = compareJsons(file1json, file2json);
+      const result = compareJsons(file1, file2);
 
       console.log(result);
 
