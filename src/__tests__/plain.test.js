@@ -1,4 +1,3 @@
-import getDiff from '../getDiff.js';
 import plain from '../formatter/plain.js';
 
 describe('plain', () => {

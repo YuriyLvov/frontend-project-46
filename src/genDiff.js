@@ -2,6 +2,7 @@ import parsers from './parsers.js';
 import getDiff from './getDiff.js';
 import stylish from './formatter/stylish.js';
 import plain from './formatter/plain.js';
+import json from './formatter/json.js';
 
 const genDiff = (filepath1, filepath2, formatName) => {
   const file1 = parsers(filepath1);
@@ -11,10 +12,15 @@ const genDiff = (filepath1, filepath2, formatName) => {
 
   if (formatName === 'stylish') {
     formatter = stylish;
+
   } else if (formatName === 'plain') {
     formatter = plain;
+
+  } else if (formatName === 'json') {
+    formatter = json;
+
   } else {
-    formatter = plain;
+    formatter = stylish;
   }
 
   const diff = getDiff(file1, file2);
