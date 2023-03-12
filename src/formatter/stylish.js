@@ -31,7 +31,7 @@ const stylish = (diff, padding = 0) => {
       result += '\n'
     }
   };
-  return `{\n${result}\n${spacesPadding}}`
+  return `{\n${result}\n${spacesPadding}}`;
 };
 
 export default stylish;

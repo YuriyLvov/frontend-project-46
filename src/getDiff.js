@@ -17,7 +17,7 @@ const getDiff = (first, second) => {
 
     const value1IsObject = lodash.isObject(value1);
     const value2IsObject = lodash.isObject(value2);
-    
+
     if (first === null || second === null) {
       const caseValue = first === null ? value2 : value1;
 
@@ -30,7 +30,7 @@ const getDiff = (first, second) => {
     }
 
     if (!value1Exists || !value2Exists) {
-      const caseValue = value1 || value2;
+      const caseValue = value1Exists ? value1 : value2;
       result.push({
         fieldName: key,
         type: value1Exists ? 'LEFT_CHANGED' : 'RIGHT_CHANGED',

@@ -1,3 +1,3 @@
-import gendiff from './gendiff.js';
+import commander from './commander.js';
 
-export default gendiff;
+export default commander;

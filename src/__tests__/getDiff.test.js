@@ -205,6 +205,4 @@ describe('getDiff', () => {
       }]);
     });
   });
-
-  // describe('sorting', () => {});
 });
