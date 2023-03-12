@@ -11,7 +11,7 @@ const commander = () => {
     .arguments('<filepath1>')
     .arguments('<filepath2>')
     .action((filepath1, filepath2) => {
-      const format = cli.opts().format;
+      const { format } = cli.opts();
       const diff = genDiff(filepath1, filepath2, format);
 
       console.log(diff);

@@ -1,4 +1,4 @@
-import stylish from "../formatter/stylish";
+import stylish from '../formatter/stylish';
 
 describe('stylish', () => {
   it('should handle LEFT_CHANGED for plain objects', () => {
@@ -151,7 +151,7 @@ describe('stylish', () => {
           fieldName: 'b',
           type: 'NO_CHAGES',
           value: 'b2',
-        }
+        },
       ],
     }, {
       fieldName: 'c',
@@ -166,7 +166,7 @@ describe('stylish', () => {
           fieldName: 'e',
           type: 'NO_CHAGES',
           value: 'e1',
-        }
+        },
       ],
       valueRight: 'c2',
     }]);
@@ -229,4 +229,3 @@ describe('stylish', () => {
 }`);
   });
 });
-

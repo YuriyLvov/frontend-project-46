@@ -13,7 +13,7 @@ const parsers = (filepath) => {
 
   if (extension === '.json') {
     return JSON.parse(file);
-  } else if (extension === '.yml' || extension === '.yaml') {
+  } if (extension === '.yml' || extension === '.yaml') {
     return yaml.load(file);
   }
 

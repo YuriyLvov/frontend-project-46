@@ -12,13 +12,10 @@ const genDiff = (filepath1, filepath2, formatName) => {
 
   if (formatName === 'stylish') {
     formatter = stylish;
-
   } else if (formatName === 'plain') {
     formatter = plain;
-
   } else if (formatName === 'json') {
     formatter = json;
-
   } else {
     formatter = stylish;
   }

@@ -63,7 +63,8 @@ describe('getDiff', () => {
             fieldName: 'c',
             type: 'RIGHT_CHANGED',
             value: 'c',
-          }]);
+          }],
+        );
       });
 
       it('should return diff if the field is exists only in one object and this is an object', () => {
@@ -124,7 +125,7 @@ describe('getDiff', () => {
               fieldName: 'b',
               type: 'NO_CHAGES',
               value: 'b2',
-            }
+            },
           ],
         }, {
           fieldName: 'c',
@@ -139,12 +140,11 @@ describe('getDiff', () => {
               fieldName: 'e',
               type: 'NO_CHAGES',
               value: 'e1',
-            }
+            },
           ],
           valueRight: 'c2',
         }]);
       });
-
     });
   });
 

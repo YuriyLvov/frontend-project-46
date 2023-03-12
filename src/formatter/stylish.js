@@ -12,15 +12,12 @@ const stylish = (diff, padding = 0) => {
     if (diffNode.type === 'LEFT_CHANGED') {
       const value = lodash.isObject(diffNode.value) ? stylish(diffNode.value, padding + 1) : diffNode.value;
       result += `${spacesPadding}  - ${diffNode.fieldName}: ${value}`;
-
     } else if (diffNode.type === 'RIGHT_CHANGED') {
       const value = lodash.isObject(diffNode.value) ? stylish(diffNode.value, padding + 1) : diffNode.value;
       result += `${spacesPadding}  + ${diffNode.fieldName}: ${value}`;
-
     } else if (diffNode.type === 'NO_CHAGES') {
       const value = lodash.isObject(diffNode.value) ? stylish(diffNode.value, padding + 1) : diffNode.value;
       result += `${spacesPadding}    ${diffNode.fieldName}: ${value}`;
-
     } else if (diffNode.type === 'BOTH_CHANGED') {
       const valueLeft = lodash.isObject(diffNode.valueLeft) ? stylish(diffNode.valueLeft, padding + 1) : diffNode.valueLeft;
       const valueRight = lodash.isObject(diffNode.valueRight) ? stylish(diffNode.valueRight, padding + 1) : diffNode.valueRight;
@@ -29,9 +26,9 @@ const stylish = (diff, padding = 0) => {
     }
 
     if (i !== diff.length - 1) {
-      result += '\n'
+      result += '\n';
     }
-  };
+  }
   return `{\n${result}\n${spacesPadding}}`;
 };
 
