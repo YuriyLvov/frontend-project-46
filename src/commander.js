@@ -1,7 +1,5 @@
 import { Command } from 'commander';
-import parsers from './parsers.js';
-import getDiff from './getDiff.js';
-import stylish from './formatter/stylish.js';
+import genDiff from './genDiff.js';
 
 const commander = () => {
   const cli = new Command();
@@ -14,23 +12,11 @@ const commander = () => {
     .arguments('<filepath2>')
     .action((filepath1, filepath2) => {
       const format = cli.opts().format;
-      const file1 = parsers(filepath1);
-      const file2 = parsers(filepath2);
+      const diff = genDiff(filepath1, filepath2, format);
 
-      let formatter;
+      console.log(diff);
 
-      if (format === 'stylish') {
-        formatter = stylish;
-      } else {
-        formatter = stylish;
-      }
-
-      const diff = getDiff(file1, file2);
-      const result = formatter(diff);
-
-      console.log(result);
-
-      return result;
+      return diff;
     })
     .version('0.0.1');
 

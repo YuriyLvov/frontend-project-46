@@ -8,6 +8,7 @@ const stylish = (diff, padding = 0) => {
 
   for (let i = 0; i < diff.length; i += 1) {
     const diffNode = diff[i];
+
     if (diffNode.type === 'LEFT_CHANGED') {
       const value = lodash.isObject(diffNode.value) ? stylish(diffNode.value, padding + 1) : diffNode.value;
       result += `${spacesPadding}  - ${diffNode.fieldName}: ${value}`;

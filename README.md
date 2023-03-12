@@ -13,3 +13,6 @@
 
 ### step 6
 [![asciicast](https://asciinema.org/a/LAyqYgNXaTbtR49R4Vrns5ixo.svg)](https://asciinema.org/a/LAyqYgNXaTbtR49R4Vrns5ixo)
+
+### step 7
+[![asciicast](https://asciinema.org/a/SDB8hVDssSRb2iH2B90iDB4fV.svg)](https://asciinema.org/a/SDB8hVDssSRb2iH2B90iDB4fV)
