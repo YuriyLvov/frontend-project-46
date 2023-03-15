@@ -1,4 +1,4 @@
-import parsers from '../parsers.js';
+import parsers from '../src/parsers.js';
 
 describe('gendiff comp', () => {
   it('should use correct parser for JSON', () => {

@@ -1,4 +1,4 @@
-import plain from '../formatter/plain.js';
+import plain from '../src/formatter/plain.js';
 
 describe('plain', () => {
   it('should show property was with a plain value', () => {

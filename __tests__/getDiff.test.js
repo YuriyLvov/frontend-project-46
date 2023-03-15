@@ -1,4 +1,4 @@
-import getDiff from '../getDiff.js';
+import getDiff from '../src/getDiff.js';
 
 describe('getDiff', () => {
   describe('with changes', () => {

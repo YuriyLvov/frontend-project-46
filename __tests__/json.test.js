@@ -1,4 +1,4 @@
-import json from '../formatter/json.js';
+import json from '../src/formatter/json.js';
 
 describe('json', () => {
   it('should return file as a string', () => {

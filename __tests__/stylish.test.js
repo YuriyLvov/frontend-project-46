@@ -1,4 +1,4 @@
-import stylish from '../formatter/stylish';
+import stylish from '../src/formatter/stylish.js';
 
 describe('stylish', () => {
   it('should handle LEFT_CHANGED for plain objects', () => {
