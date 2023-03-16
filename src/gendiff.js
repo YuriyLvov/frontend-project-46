@@ -4,7 +4,7 @@ import stylish from './formatter/stylish.js';
 import plain from './formatter/plain.js';
 import json from './formatter/json.js';
 
-const gendiff = (filepath1, filepath2, formatName) => {
+const genDiff = (filepath1, filepath2, formatName) => {
   const file1 = parsers(filepath1);
   const file2 = parsers(filepath2);
 
@@ -26,4 +26,4 @@ const gendiff = (filepath1, filepath2, formatName) => {
   return result;
 };
 
-export default gendiff;
+export default genDiff;

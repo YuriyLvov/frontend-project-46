@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import genDiff from './genDiff.js';
+import gendiff from './gendiff.js';
 
 const commander = () => {
   const cli = new Command();
@@ -12,7 +12,7 @@ const commander = () => {
     .arguments('<filepath2>')
     .action((filepath1, filepath2) => {
       const { format } = cli.opts();
-      const diff = genDiff(filepath1, filepath2, format);
+      const diff = gendiff(filepath1, filepath2, format);
 
       console.log(diff);
 
