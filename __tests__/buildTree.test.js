@@ -1,12 +1,12 @@
-import getDiff from '../src/getDiff.js';
+import buildTree from '../src/buildTree.js';
 
-describe('getDiff', () => {
+describe('buildTree', () => {
   describe('with changes', () => {
     describe('left changed', () => {
       it('should return diff if the field is exists only in one object and this is a primitive', () => {
         const first = { a: 'a', b: 'b', c: 'c' };
         const second = {};
-        const result = getDiff(first, second);
+        const result = buildTree(first, second);
 
         expect(result).toEqual([{
           fieldName: 'a',
@@ -26,7 +26,7 @@ describe('getDiff', () => {
       it('should return diff if the field is exists only in one object and this is an object', () => {
         const first = { a: { b: 'b' }, c: 'c' };
         const second = {};
-        const result = getDiff(first, second);
+        const result = buildTree(first, second);
 
         expect(result).toEqual([{
           fieldName: 'a',
@@ -48,7 +48,7 @@ describe('getDiff', () => {
       it('should return diff if the field is exists only in one object and this is a primitive', () => {
         const first = {};
         const second = { a: 'a', b: 'b', c: 'c' };
-        const result = getDiff(first, second);
+        const result = buildTree(first, second);
 
         expect(result).toEqual(
           [{
@@ -70,7 +70,7 @@ describe('getDiff', () => {
       it('should return diff if the field is exists only in one object and this is an object', () => {
         const first = {};
         const second = { a: { b: 'b' }, c: 'c' };
-        const result = getDiff(first, second);
+        const result = buildTree(first, second);
 
         expect(result).toEqual([{
           fieldName: 'a',
@@ -92,7 +92,7 @@ describe('getDiff', () => {
       it('should return diff for two the different primitives', () => {
         const first = { a: 'a1', b: 'b1', c: 'c1' };
         const second = { a: 'a2', b: 'b2', c: 'c1' };
-        const result = getDiff(first, second);
+        const result = buildTree(first, second);
 
         expect(result).toEqual([{
           fieldName: 'a',
@@ -114,7 +114,7 @@ describe('getDiff', () => {
       it('should return diff if the field is a primitive and an object', () => {
         const first = { a: 'a1', c: { d: 'd1', e: 'e1' } };
         const second = { a: { b: 'b2' }, c: 'c2' };
-        const result = getDiff(first, second);
+        const result = buildTree(first, second);
 
         expect(result).toEqual([{
           fieldName: 'a',
@@ -152,7 +152,7 @@ describe('getDiff', () => {
     it('should return diff for two the same primitives', () => {
       const first = { a: 'a', b: 'b', c: 'c' };
       const second = { a: 'a', b: 'b', c: 'c' };
-      const result = getDiff(first, second);
+      const result = buildTree(first, second);
 
       expect(result).toEqual([{
         fieldName: 'a',
@@ -172,7 +172,7 @@ describe('getDiff', () => {
     it('should return recusrive diff for two nested objects', () => {
       const first = { a: { b: 'b' }, c: { d: 'd', e: { f: 'f', g: 'g' } } };
       const second = { a: { b: 'b' }, c: { d: 'd', e: { f: 'f', g: 'g' } } };
-      const result = getDiff(first, second);
+      const result = buildTree(first, second);
 
       expect(result).toEqual([{
         fieldName: 'a',
