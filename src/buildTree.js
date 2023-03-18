@@ -1,8 +1,12 @@
 import lodash from 'lodash';
 
 const getDiff = (first, second) => {
-  const allKeys = [...Object.keys(first), ...Object.keys(second)];
-  const uniqueKeys = Array.from(new Set(allKeys)).sort();
+  if (!first || !second) {
+    return [];
+  }
+
+  const allKeys = [...lodash.keys(first), ...lodash.keys(second)];
+  const uniqueKeys = lodash.uniq(allKeys).slice().sort();
 
   const result = [];
 
@@ -23,7 +27,7 @@ const getDiff = (first, second) => {
 
       result.push({
         fieldName: key,
-        type: 'NO_CHAGES',
+        type: 'NO_CHANGES',
         value: lodash.isObject(caseValue) ? getDiff(caseValue, null) : caseValue,
       });
       continue;
@@ -44,7 +48,7 @@ const getDiff = (first, second) => {
       if (value1 === value2) {
         result.push({
           fieldName: key,
-          type: 'NO_CHAGES',
+          type: 'NO_CHANGES',
           value: value1,
         });
       } else {
@@ -62,7 +66,7 @@ const getDiff = (first, second) => {
       // 100% both are objects
       result.push({
         fieldName: key,
-        type: 'NO_CHAGES',
+        type: 'NO_CHANGES',
         value: getDiff(value1, value2),
       });
       continue;
