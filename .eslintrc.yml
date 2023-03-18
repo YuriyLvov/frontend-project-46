@@ -9,6 +9,13 @@ parserOptions:
   sourceType: module
 rules: {"no-console": 0,"no-continue": 0,
         "no-underscore-dangle": [2, { "allow": ["__filename", "__dirname"] }],
+        "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "ForStatement",
+        "message": "Use a functional alternative instead of a for loop"
+      }
+        ],
         "import/extensions": ["error","ignorePackages",{"js": "always"} ]
 }
 plugins: ["jest"]

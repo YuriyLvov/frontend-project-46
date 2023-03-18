@@ -35,7 +35,7 @@ function plain(diff, path = '') {
       result += '\n';
     }
   });
-
+  // Replaced let with const to avoid accidental reassignment of the result variable.
   return result.trim();
 }
 
