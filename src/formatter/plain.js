@@ -10,14 +10,14 @@ const getFormattedValue = (value) => {
   return value;
 };
 
-const plain = (diff, path = '') => {
+function plain(diff, path = '') {
   let result = '';
 
   for (let i = 0; i < diff.length; i += 1) {
     const diffNode = diff[i];
-    const pathToDiff = [path, diffNode.fieldName].filter((element) => Boolean(element)).join('.');
+    const pathToDiff = [path, diffNode.fieldName].filter(Boolean).join('.');
 
-    if (diffNode.type === 'NO_CHAGES' && !lodash.isObject(diffNode.value)) {
+    if (diffNode.type === 'NO_CHAGES' && typeof diffNode.value !== 'object') {
       continue;
     }
 
@@ -38,6 +38,6 @@ const plain = (diff, path = '') => {
   }
 
   return result.trim();
-};
+}
 
 export default plain;

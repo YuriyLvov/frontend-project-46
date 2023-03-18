@@ -26,6 +26,7 @@ const getDiff = (first, second) => {
         type: 'NO_CHAGES',
         value: lodash.isObject(caseValue) ? getDiff(caseValue, null) : caseValue,
       });
+
       continue;
     }
 
@@ -36,6 +37,7 @@ const getDiff = (first, second) => {
         type: value1Exists ? 'LEFT_CHANGED' : 'RIGHT_CHANGED',
         value: lodash.isObject(caseValue) ? getDiff(caseValue, null) : caseValue,
       });
+
       continue;
     }
 
@@ -47,8 +49,11 @@ const getDiff = (first, second) => {
           type: value1Exists ? 'LEFT_CHANGED' : 'RIGHT_CHANGED',
           value: value1Exists ? value1 : value2,
         });
+
         continue;
-      } else if (value1 === value2) {
+      }
+
+      if (value1 === value2) {
         result.push({
           fieldName: key,
           type: 'NO_CHAGES',
@@ -62,6 +67,7 @@ const getDiff = (first, second) => {
           valueRight: value2,
         });
       }
+
       continue;
     }
 
@@ -72,6 +78,7 @@ const getDiff = (first, second) => {
         type: 'NO_CHAGES',
         value: getDiff(value1, value2),
       });
+
       continue;
     }
 

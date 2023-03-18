@@ -3,7 +3,7 @@ import lodash from 'lodash';
 const spacesPaddingCount = 4;
 
 const stylish = (diff, padding = 0) => {
-  const spacesPadding = ' '.repeat(spacesPaddingCount * padding);
+  const spacesPadding = ' '.repeat(padding * spacesPaddingCount);
   let result = '';
 
   for (let i = 0; i < diff.length; i += 1) {
