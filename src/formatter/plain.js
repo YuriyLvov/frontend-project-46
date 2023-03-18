@@ -13,12 +13,11 @@ const getFormattedValue = (value) => {
 function plain(diff, path = '') {
   let result = '';
 
-  for (let i = 0; i < diff.length; i += 1) {
-    const diffNode = diff[i];
+  diff.forEach((diffNode, i) => {
     const pathToDiff = [path, diffNode.fieldName].filter(Boolean).join('.');
 
     if (diffNode.type === 'NO_CHAGES' && typeof diffNode.value !== 'object') {
-      continue;
+      return;
     }
 
     if (diffNode.type === 'LEFT_CHANGED') {
@@ -35,7 +34,7 @@ function plain(diff, path = '') {
     if (i !== diff.length - 1) {
       result += '\n';
     }
-  }
+  });
 
   return result.trim();
 }

@@ -2,7 +2,7 @@ import lodash from 'lodash';
 
 const getDiff = (first, second) => {
   const allKeys = [...lodash.keys(first), ...lodash.keys(second)];
-  const uniqueKeys = lodash.uniq(allKeys).sort();
+  const uniqueKeys = lodash.uniq(allKeys);
 
   return uniqueKeys.reduce((result, key) => {
     const value1 = lodash.get(first, key);
