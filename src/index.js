@@ -8,9 +8,7 @@ const gendiff = (filepath1, filepath2, formatName = 'stylish') => {
   const formatter = getFormatter(formatName);
   const diff = buildTree(file1, file2);
   const result = formatter(diff);
-  // console.log('formatter', formatter);
-  console.log('diff', JSON.stringify(diff));
-  // console.log('result', result);
+
   return result;
 };
 
