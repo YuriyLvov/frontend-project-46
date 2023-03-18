@@ -1,12 +1,14 @@
 import lodash from 'lodash';
 
 const getDiff = (first, second) => {
-  const allKeys = [...lodash.keys(first), ...lodash.keys(second)];
-  const uniqueKeys = lodash.uniq(allKeys);
+  const allKeys = [...Object.keys(first), ...Object.keys(second)];
+  const uniqueKeys = Array.from(new Set(allKeys)).sort();
 
   const result = [];
 
-  for (const key of uniqueKeys) {
+  for (let i = 0; i < uniqueKeys.length; i += 1) {
+    const key = uniqueKeys[i];
+
     const value1 = lodash.get(first, key);
     const value2 = lodash.get(second, key);
 
