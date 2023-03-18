@@ -4,11 +4,7 @@ const getDiff = (first, second) => {
   const allKeys = [...lodash.keys(first), ...lodash.keys(second)];
   const uniqueKeys = lodash.uniq(allKeys).sort();
 
-  const result = [];
-
-  for (let i = 0; i < uniqueKeys.length; i += 1) {
-    const key = uniqueKeys[i];
-
+  return uniqueKeys.reduce((result, key) => {
     const value1 = lodash.get(first, key);
     const value2 = lodash.get(second, key);
 
@@ -21,76 +17,74 @@ const getDiff = (first, second) => {
     if (first === null || second === null) {
       const caseValue = first === null ? value2 : value1;
 
-      result.push({
-        fieldName: key,
-        type: 'NO_CHAGES',
-        value: lodash.isObject(caseValue) ? getDiff(caseValue, null) : caseValue,
-      });
-
-      continue;
+      return [
+        ...result,
+        {
+          fieldName: key,
+          type: 'NO_CHAGES',
+          value: lodash.isObject(caseValue) ? getDiff(caseValue, null) : caseValue,
+        },
+      ];
     }
 
     if (!value1Exists || !value2Exists) {
       const caseValue = value1Exists ? value1 : value2;
-      result.push({
-        fieldName: key,
-        type: value1Exists ? 'LEFT_CHANGED' : 'RIGHT_CHANGED',
-        value: lodash.isObject(caseValue) ? getDiff(caseValue, null) : caseValue,
-      });
-
-      continue;
+      return [
+        ...result,
+        {
+          fieldName: key,
+          type: value1Exists ? 'LEFT_CHANGED' : 'RIGHT_CHANGED',
+          value: lodash.isObject(caseValue) ? getDiff(caseValue, null) : caseValue,
+        },
+      ];
     }
 
     if (!value1IsObject && !value2IsObject) {
       // 100% both are primitives
-      if (!value1Exists || !value2Exists) {
-        result.push({
-          fieldName: key,
-          type: value1Exists ? 'LEFT_CHANGED' : 'RIGHT_CHANGED',
-          value: value1Exists ? value1 : value2,
-        });
-
-        continue;
+      if (value1 === value2) {
+        return [
+          ...result,
+          {
+            fieldName: key,
+            type: 'NO_CHAGES',
+            value: value1,
+          },
+        ];
       }
 
-      if (value1 === value2) {
-        result.push({
-          fieldName: key,
-          type: 'NO_CHAGES',
-          value: value1,
-        });
-      } else {
-        result.push({
+      return [
+        ...result,
+        {
           fieldName: key,
           type: 'BOTH_CHANGED',
           valueLeft: value1,
           valueRight: value2,
-        });
-      }
-
-      continue;
+        },
+      ];
     }
 
     if (value1IsObject && value2IsObject) {
       // 100% both are objects
-      result.push({
-        fieldName: key,
-        type: 'NO_CHAGES',
-        value: getDiff(value1, value2),
-      });
-
-      continue;
+      return [
+        ...result,
+        {
+          fieldName: key,
+          type: 'NO_CHAGES',
+          value: getDiff(value1, value2),
+        },
+      ];
     }
 
-    result.push({
-      fieldName: key,
-      type: 'BOTH_CHANGED',
-      valueLeft: value1IsObject ? getDiff(value1, null) : value1,
-      valueRight: value2IsObject ? getDiff(value2, null) : value2,
-    });
-  }
-
-  return result;
+    return [
+      ...result,
+      {
+        fieldName: key,
+        type: 'BOTH_CHANGED',
+        valueLeft: value1IsObject ? getDiff(value1, null) : value1,
+        valueRight: value2IsObject ? getDiff(value2, null) : value2,
+      },
+    ];
+  }, []);
 };
 
 export default getDiff;
