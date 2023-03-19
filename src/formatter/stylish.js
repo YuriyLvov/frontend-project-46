@@ -5,7 +5,10 @@ const spacesPaddingCount = 4;
 const stylish = (diff, padding = 0) => {
   const spacesPadding = ' '.repeat(padding * spacesPaddingCount);
 
-  const result = diff.reduce((acc, diffNode) => {
+  const result = diff.reduce((acc, diffNode, i, arr) => {
+    const isLastNode = arr.length - 1 !== i;
+    const endOfLine = isLastNode ? '' : '\n';
+
     const {
       fieldName,
       type,
@@ -18,21 +21,21 @@ const stylish = (diff, padding = 0) => {
       const valueFormatted = lodash.isObject(value)
         ? stylish(value, padding + 1)
         : value;
-      return `${acc}${spacesPadding}  - ${fieldName}: ${valueFormatted}\n`;
+      return `${acc}${spacesPadding}  - ${fieldName}: ${valueFormatted}${endOfLine}`;
     }
 
     if (type === 'RIGHT_CHANGED') {
       const valueFormatted = lodash.isObject(value)
         ? stylish(value, padding + 1)
         : value;
-      return `${acc}${spacesPadding}  + ${fieldName}: ${valueFormatted}\n`;
+      return `${acc}${spacesPadding}  + ${fieldName}: ${valueFormatted}${endOfLine}`;
     }
 
     if (type === 'NO_CHAGES') {
       const valueFormatted = lodash.isObject(value)
         ? stylish(value, padding + 1)
         : value;
-      return `${acc}${spacesPadding}    ${fieldName}: ${valueFormatted}\n`;
+      return `${acc}${spacesPadding}    ${fieldName}: ${valueFormatted}${endOfLine}`;
     }
 
     if (type === 'BOTH_CHANGED') {
@@ -42,7 +45,7 @@ const stylish = (diff, padding = 0) => {
       const valueRightFormatted = lodash.isObject(valueRight)
         ? stylish(valueRight, padding + 1)
         : valueRight;
-      return `${acc}${spacesPadding}  - ${fieldName}: ${valueLeftFormatted}\n${spacesPadding}  + ${fieldName}: ${valueRightFormatted}\n`;
+      return `${acc}${spacesPadding}  - ${fieldName}: ${valueLeftFormatted}\n${spacesPadding}  + ${fieldName}: ${valueRightFormatted}${endOfLine}`;
     }
 
     return acc;
