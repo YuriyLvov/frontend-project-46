@@ -3,6 +3,8 @@ import lodash from 'lodash';
 const spacesPaddingCount = 4;
 
 const stylish = (diff, padding = 0) => {
+  console.log('diff', JSON.stringify(diff));
+  console.log('padding', padding);
   const spacesPadding = ' '.repeat(padding * spacesPaddingCount);
 
   const result = diff.reduce((acc, diffNode, i, arr) => {
