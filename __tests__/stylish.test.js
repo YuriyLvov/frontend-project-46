@@ -45,18 +45,18 @@ describe('stylish', () => {
 }`);
   });
 
-  it('should handle NO_CHAGES for plain objects', () => {
+  it('should handle NO_CHANGES for plain objects', () => {
     const result = stylish([{
       fieldName: 'a',
-      type: 'NO_CHAGES',
+      type: 'NO_CHANGES',
       value: 'a',
     }, {
       fieldName: 'b',
-      type: 'NO_CHAGES',
+      type: 'NO_CHANGES',
       value: 'b',
     }, {
       fieldName: 'c',
-      type: 'NO_CHAGES',
+      type: 'NO_CHANGES',
       value: 'c',
     }]);
 
@@ -101,7 +101,7 @@ describe('stylish', () => {
       type: 'LEFT_CHANGED',
       value: [{
         fieldName: 'b',
-        type: 'NO_CHAGES',
+        type: 'NO_CHANGES',
         value: 'b',
       }],
     }, {
@@ -124,7 +124,7 @@ describe('stylish', () => {
       type: 'RIGHT_CHANGED',
       value: [{
         fieldName: 'b',
-        type: 'NO_CHAGES',
+        type: 'NO_CHANGES',
         value: 'b',
       }],
     }, {
@@ -149,7 +149,7 @@ describe('stylish', () => {
       valueRight: [
         {
           fieldName: 'b',
-          type: 'NO_CHAGES',
+          type: 'NO_CHANGES',
           value: 'b2',
         },
       ],
@@ -159,12 +159,12 @@ describe('stylish', () => {
       valueLeft: [
         {
           fieldName: 'd',
-          type: 'NO_CHAGES',
+          type: 'NO_CHANGES',
           value: 'd1',
         },
         {
           fieldName: 'e',
-          type: 'NO_CHAGES',
+          type: 'NO_CHANGES',
           value: 'e1',
         },
       ],
@@ -184,32 +184,32 @@ describe('stylish', () => {
 }`);
   });
 
-  it('should handle NO_CHAGES for nested objects', () => {
+  it('should handle NO_CHANGES for nested objects', () => {
     const result = stylish([{
       fieldName: 'a',
-      type: 'NO_CHAGES',
+      type: 'NO_CHANGES',
       value: [{
         fieldName: 'b',
-        type: 'NO_CHAGES',
+        type: 'NO_CHANGES',
         value: 'b',
       }],
     }, {
       fieldName: 'c',
-      type: 'NO_CHAGES',
+      type: 'NO_CHANGES',
       value: [{
         fieldName: 'd',
-        type: 'NO_CHAGES',
+        type: 'NO_CHANGES',
         value: 'd',
       }, {
         fieldName: 'e',
-        type: 'NO_CHAGES',
+        type: 'NO_CHANGES',
         value: [{
           fieldName: 'f',
-          type: 'NO_CHAGES',
+          type: 'NO_CHANGES',
           value: 'f',
         }, {
           fieldName: 'g',
-          type: 'NO_CHAGES',
+          type: 'NO_CHANGES',
           value: 'g',
         }],
       }],

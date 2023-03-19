@@ -1,10 +1,6 @@
 import lodash from 'lodash';
 
 const getDiff = (first, second) => {
-  if (!first || !second) {
-    return [];
-  }
-
   const allKeys = [...lodash.keys(first), ...lodash.keys(second)];
   const uniqueKeys = lodash.uniq(allKeys).slice().sort();
 

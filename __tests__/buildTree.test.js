@@ -33,7 +33,7 @@ describe('buildTree', () => {
           type: 'LEFT_CHANGED',
           value: [{
             fieldName: 'b',
-            type: 'NO_CHAGES',
+            type: 'NO_CHANGES',
             value: 'b',
           }],
         }, {
@@ -77,7 +77,7 @@ describe('buildTree', () => {
           type: 'RIGHT_CHANGED',
           value: [{
             fieldName: 'b',
-            type: 'NO_CHAGES',
+            type: 'NO_CHANGES',
             value: 'b',
           }],
         }, {
@@ -106,7 +106,7 @@ describe('buildTree', () => {
           valueRight: 'b2',
         }, {
           fieldName: 'c',
-          type: 'NO_CHAGES',
+          type: 'NO_CHANGES',
           value: 'c1',
         }]);
       });
@@ -123,7 +123,7 @@ describe('buildTree', () => {
           valueRight: [
             {
               fieldName: 'b',
-              type: 'NO_CHAGES',
+              type: 'NO_CHANGES',
               value: 'b2',
             },
           ],
@@ -133,12 +133,12 @@ describe('buildTree', () => {
           valueLeft: [
             {
               fieldName: 'd',
-              type: 'NO_CHAGES',
+              type: 'NO_CHANGES',
               value: 'd1',
             },
             {
               fieldName: 'e',
-              type: 'NO_CHAGES',
+              type: 'NO_CHANGES',
               value: 'e1',
             },
           ],
@@ -156,15 +156,15 @@ describe('buildTree', () => {
 
       expect(result).toEqual([{
         fieldName: 'a',
-        type: 'NO_CHAGES',
+        type: 'NO_CHANGES',
         value: 'a',
       }, {
         fieldName: 'b',
-        type: 'NO_CHAGES',
+        type: 'NO_CHANGES',
         value: 'b',
       }, {
         fieldName: 'c',
-        type: 'NO_CHAGES',
+        type: 'NO_CHANGES',
         value: 'c',
       }]);
     });
@@ -176,29 +176,29 @@ describe('buildTree', () => {
 
       expect(result).toEqual([{
         fieldName: 'a',
-        type: 'NO_CHAGES',
+        type: 'NO_CHANGES',
         value: [{
           fieldName: 'b',
-          type: 'NO_CHAGES',
+          type: 'NO_CHANGES',
           value: 'b',
         }],
       }, {
         fieldName: 'c',
-        type: 'NO_CHAGES',
+        type: 'NO_CHANGES',
         value: [{
           fieldName: 'd',
-          type: 'NO_CHAGES',
+          type: 'NO_CHANGES',
           value: 'd',
         }, {
           fieldName: 'e',
-          type: 'NO_CHAGES',
+          type: 'NO_CHANGES',
           value: [{
             fieldName: 'f',
-            type: 'NO_CHAGES',
+            type: 'NO_CHANGES',
             value: 'f',
           }, {
             fieldName: 'g',
-            type: 'NO_CHAGES',
+            type: 'NO_CHANGES',
             value: 'g',
           }],
         }],

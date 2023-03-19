@@ -3,14 +3,9 @@ import lodash from 'lodash';
 const spacesPaddingCount = 4;
 
 const stylish = (diff, padding = 0) => {
-  console.log('diff', JSON.stringify(diff));
-  console.log('padding', padding);
   const spacesPadding = ' '.repeat(padding * spacesPaddingCount);
 
-  const result = diff.reduce((acc, diffNode, i, arr) => {
-    const isLastNode = arr.length - 1 !== i;
-    const endOfLine = isLastNode ? '' : '\n';
-
+  const result = diff.reduce((acc, diffNode) => {
     const {
       fieldName,
       type,
@@ -23,21 +18,21 @@ const stylish = (diff, padding = 0) => {
       const valueFormatted = lodash.isObject(value)
         ? stylish(value, padding + 1)
         : value;
-      return `${acc}${spacesPadding}  - ${fieldName}: ${valueFormatted}${endOfLine}`;
+      return `${acc}${spacesPadding}  - ${fieldName}: ${valueFormatted}\n`;
     }
 
     if (type === 'RIGHT_CHANGED') {
       const valueFormatted = lodash.isObject(value)
         ? stylish(value, padding + 1)
         : value;
-      return `${acc}${spacesPadding}  + ${fieldName}: ${valueFormatted}${endOfLine}`;
+      return `${acc}${spacesPadding}  + ${fieldName}: ${valueFormatted}\n`;
     }
 
-    if (type === 'NO_CHAGES') {
+    if (type === 'NO_CHANGES') {
       const valueFormatted = lodash.isObject(value)
         ? stylish(value, padding + 1)
         : value;
-      return `${acc}${spacesPadding}    ${fieldName}: ${valueFormatted}${endOfLine}`;
+      return `${acc}${spacesPadding}    ${fieldName}: ${valueFormatted}\n`;
     }
 
     if (type === 'BOTH_CHANGED') {
@@ -47,7 +42,7 @@ const stylish = (diff, padding = 0) => {
       const valueRightFormatted = lodash.isObject(valueRight)
         ? stylish(valueRight, padding + 1)
         : valueRight;
-      return `${acc}${spacesPadding}  - ${fieldName}: ${valueLeftFormatted}\n${spacesPadding}  + ${fieldName}: ${valueRightFormatted}${endOfLine}`;
+      return `${acc}${spacesPadding}  - ${fieldName}: ${valueLeftFormatted}\n${spacesPadding}  + ${fieldName}: ${valueRightFormatted}\n`;
     }
 
     return acc;

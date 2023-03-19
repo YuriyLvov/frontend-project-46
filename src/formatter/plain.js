@@ -16,7 +16,7 @@ function plain(diff, path = '') {
   diff.forEach((diffNode, i) => {
     const pathToDiff = [path, diffNode.fieldName].filter(Boolean).join('.');
 
-    if (diffNode.type === 'NO_CHAGES' && typeof diffNode.value !== 'object') {
+    if (diffNode.type === 'NO_CHANGES' && typeof diffNode.value !== 'object') {
       return;
     }
 
@@ -24,7 +24,7 @@ function plain(diff, path = '') {
       result += `Property '${pathToDiff}' was removed`;
     } else if (diffNode.type === 'RIGHT_CHANGED') {
       result += `Property '${pathToDiff}' was added with value: ${getFormattedValue(diffNode.value)}`;
-    } else if (diffNode.type === 'NO_CHAGES') {
+    } else if (diffNode.type === 'NO_CHANGES') {
       const value = plain(diffNode.value, pathToDiff);
       result += value;
     } else if (diffNode.type === 'BOTH_CHANGED') {

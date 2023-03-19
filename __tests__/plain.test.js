@@ -5,13 +5,13 @@ describe('plain', () => {
     const result = plain([
       {
         fieldName: 'a',
-        type: 'NO_CHAGES',
+        type: 'NO_CHANGES',
         value: [
           { fieldName: 'b', type: 'RIGHT_CHANGED', value: false },
           { fieldName: 'c', type: 'RIGHT_CHANGED', value: 'a c' },
           {
             fieldName: 'd',
-            type: 'NO_CHAGES',
+            type: 'NO_CHANGES',
             value: [
               { fieldName: 'e', type: 'RIGHT_CHANGED', value: 'a d e' },
             ],
@@ -33,21 +33,21 @@ Property 'a.f' was added with value: null`);
         fieldName: 'a',
         type: 'RIGHT_CHANGED',
         value: [
-          { fieldName: 'b', type: 'NO_CHAGES', value: false },
-          { fieldName: 'c', type: 'NO_CHAGES', value: 'a c' },
+          { fieldName: 'b', type: 'NO_CHANGES', value: false },
+          { fieldName: 'c', type: 'NO_CHANGES', value: 'a c' },
           {
             fieldName: 'd',
-            type: 'NO_CHAGES',
+            type: 'NO_CHANGES',
             value: [
-              { fieldName: 'e', type: 'NO_CHAGES', value: 'a d e' },
+              { fieldName: 'e', type: 'NO_CHANGES', value: 'a d e' },
             ],
           },
-          { fieldName: 'f', type: 'NO_CHAGES', value: null },
+          { fieldName: 'f', type: 'NO_CHANGES', value: null },
         ],
       },
       {
         fieldName: 'g',
-        type: 'NO_CHAGES',
+        type: 'NO_CHANGES',
         value: [
           { fieldName: 'h', type: 'RIGHT_CHANGED', value: [] },
         ],
@@ -62,18 +62,18 @@ Property 'g.h' was added with value: [complex value]`);
     const result = plain([
       {
         fieldName: 'a',
-        type: 'NO_CHAGES',
+        type: 'NO_CHANGES',
         value: [
           {
             fieldName: 'b', type: 'BOTH_CHANGED', valueLeft: true, valueRight: null,
           },
           {
             fieldName: 'c',
-            type: 'NO_CHAGES',
+            type: 'NO_CHANGES',
             value: [
               {
                 fieldName: 'd',
-                type: 'NO_CHAGES',
+                type: 'NO_CHANGES',
                 value: [
                   {
                     fieldName: 'e', type: 'BOTH_CHANGED', valueLeft: '', valueRight: 'e',
@@ -89,7 +89,7 @@ Property 'g.h' was added with value: [complex value]`);
       },
       {
         fieldName: 'g',
-        type: 'NO_CHAGES',
+        type: 'NO_CHANGES',
         value: [
           {
             fieldName: 'h', type: 'BOTH_CHANGED', valueLeft: 'h', valueRight: 'hh',
@@ -108,25 +108,25 @@ Property 'g.h' was updated. From 'h' to 'hh'`);
     const result = plain([
       {
         fieldName: 'a',
-        type: 'NO_CHAGES',
+        type: 'NO_CHANGES',
         value: [
           {
             fieldName: 'b', type: 'BOTH_CHANGED', valueLeft: true, valueRight: null,
           },
           {
             fieldName: 'c',
-            type: 'NO_CHAGES',
+            type: 'NO_CHANGES',
             value: [
               {
                 fieldName: 'd',
-                type: 'NO_CHAGES',
+                type: 'NO_CHANGES',
                 value: [
                   {
                     fieldName: 'e',
                     type: 'BOTH_CHANGED',
                     valueLeft: '',
                     valueRight: [
-                      { fieldName: 'ee', type: 'NO_CHAGES', value: '' },
+                      { fieldName: 'ee', type: 'NO_CHANGES', value: '' },
                     ],
                   },
                 ],
@@ -140,20 +140,20 @@ Property 'g.h' was updated. From 'h' to 'hh'`);
         type: 'BOTH_CHANGED',
         valueLeft: false,
         valueRight: [
-          { fieldName: 'ff', type: 'NO_CHAGES', value: null },
+          { fieldName: 'ff', type: 'NO_CHANGES', value: null },
         ],
       },
       {
         fieldName: 'g',
-        type: 'NO_CHAGES',
+        type: 'NO_CHANGES',
         value: [
           {
             fieldName: 'h',
             type: 'BOTH_CHANGED',
             valueLeft: 'h',
             valueRight: [
-              { fieldName: 'hh', type: 'NO_CHAGES', value: 'hh' },
-              { fieldName: 'hhh', type: 'NO_CHAGES', value: true },
+              { fieldName: 'hh', type: 'NO_CHANGES', value: 'hh' },
+              { fieldName: 'hhh', type: 'NO_CHANGES', value: true },
             ],
           },
         ],
@@ -162,7 +162,7 @@ Property 'g.h' was updated. From 'h' to 'hh'`);
         fieldName: 'i',
         type: 'BOTH_CHANGED',
         valueLeft: [
-          { fieldName: 'ii', type: 'NO_CHAGES', value: 'ii' },
+          { fieldName: 'ii', type: 'NO_CHANGES', value: 'ii' },
         ],
         valueRight: 'i',
       }]);
@@ -178,12 +178,12 @@ Property 'i' was updated. From [complex value] to 'i'`);
     const result = plain([
       {
         fieldName: 'a',
-        type: 'NO_CHAGES',
+        type: 'NO_CHANGES',
         value: [
           { fieldName: 'b', type: 'LEFT_CHANGED', value: '' },
           {
             fieldName: 'c',
-            type: 'NO_CHAGES',
+            type: 'NO_CHANGES',
             value: [
               { fieldName: 'd', type: 'LEFT_CHANGED', value: true },
             ],
@@ -200,17 +200,17 @@ Property 'e' was removed`);
 
   it('should ignore the same values', () => {
     const result = plain([
-      { fieldName: 'a', type: 'NO_CHAGES', value: 'a' },
+      { fieldName: 'a', type: 'NO_CHANGES', value: 'a' },
       {
         fieldName: 'b',
-        type: 'NO_CHAGES',
+        type: 'NO_CHANGES',
         value: [
-          { fieldName: 'c', type: 'NO_CHAGES', value: 'c' },
+          { fieldName: 'c', type: 'NO_CHANGES', value: 'c' },
           {
             fieldName: 'd',
-            type: 'NO_CHAGES',
+            type: 'NO_CHANGES',
             value: [
-              { fieldName: 'e', type: 'NO_CHAGES', value: 'e' },
+              { fieldName: 'e', type: 'NO_CHANGES', value: 'e' },
             ],
           },
         ],
