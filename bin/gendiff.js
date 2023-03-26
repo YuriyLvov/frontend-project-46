@@ -14,7 +14,7 @@ cli
     const { format } = cli.opts();
     const diff = gendiff(filepath1, filepath2, format);
 
-    // console.log(diff);
+    console.log(diff);
 
     return diff;
   })
