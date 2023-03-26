@@ -3,43 +3,52 @@ import lodash from 'lodash';
 const spacesPaddingCount = 4;
 
 const stylish = (diff, padding = 0) => {
-  const spacesPadding = ' '.repeat(spacesPaddingCount * padding);
-  let result = '';
+  const spacesPadding = ' '.repeat(padding * spacesPaddingCount);
 
-  for (let i = 0; i < diff.length; i += 1) {
-    const diffNode = diff[i];
+  const result = diff.reduce((acc, diffNode) => {
+    const {
+      fieldName,
+      type,
+      value,
+      valueLeft,
+      valueRight,
+    } = diffNode;
 
-    if (diffNode.type === 'LEFT_CHANGED') {
-      const value = lodash.isObject(diffNode.value)
-        ? stylish(diffNode.value, padding + 1)
-        : diffNode.value;
-      result += `${spacesPadding}  - ${diffNode.fieldName}: ${value}`;
-    } else if (diffNode.type === 'RIGHT_CHANGED') {
-      const value = lodash.isObject(diffNode.value)
-        ? stylish(diffNode.value, padding + 1)
-        : diffNode.value;
-      result += `${spacesPadding}  + ${diffNode.fieldName}: ${value}`;
-    } else if (diffNode.type === 'NO_CHAGES') {
-      const value = lodash.isObject(diffNode.value)
-        ? stylish(diffNode.value, padding + 1)
-        : diffNode.value;
-      result += `${spacesPadding}    ${diffNode.fieldName}: ${value}`;
-    } else if (diffNode.type === 'BOTH_CHANGED') {
-      const valueLeft = lodash.isObject(diffNode.valueLeft)
-        ? stylish(diffNode.valueLeft, padding + 1)
-        : diffNode.valueLeft;
-      const valueRight = lodash.isObject(diffNode.valueRight)
-        ? stylish(diffNode.valueRight, padding + 1)
-        : diffNode.valueRight;
-      result += `${spacesPadding}  - ${diffNode.fieldName}: ${valueLeft}\n`;
-      result += `${spacesPadding}  + ${diffNode.fieldName}: ${valueRight}`;
+    if (type === 'LEFT_CHANGED') {
+      const valueFormatted = lodash.isObject(value)
+        ? stylish(value, padding + 1)
+        : value;
+      return `${acc}${spacesPadding}  - ${fieldName}: ${valueFormatted}\n`;
     }
 
-    if (i !== diff.length - 1) {
-      result += '\n';
+    if (type === 'RIGHT_CHANGED') {
+      const valueFormatted = lodash.isObject(value)
+        ? stylish(value, padding + 1)
+        : value;
+      return `${acc}${spacesPadding}  + ${fieldName}: ${valueFormatted}\n`;
     }
-  }
-  return `{\n${result}\n${spacesPadding}}`;
+
+    if (type === 'NO_CHANGES') {
+      const valueFormatted = lodash.isObject(value)
+        ? stylish(value, padding + 1)
+        : value;
+      return `${acc}${spacesPadding}    ${fieldName}: ${valueFormatted}\n`;
+    }
+
+    if (type === 'BOTH_CHANGED') {
+      const valueLeftFormatted = lodash.isObject(valueLeft)
+        ? stylish(valueLeft, padding + 1)
+        : valueLeft;
+      const valueRightFormatted = lodash.isObject(valueRight)
+        ? stylish(valueRight, padding + 1)
+        : valueRight;
+      return `${acc}${spacesPadding}  - ${fieldName}: ${valueLeftFormatted}\n${spacesPadding}  + ${fieldName}: ${valueRightFormatted}\n`;
+    }
+
+    return acc;
+  }, '');
+
+  return `{\n${result}${spacesPadding}}`;
 };
 
 export default stylish;
