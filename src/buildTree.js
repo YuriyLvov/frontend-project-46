@@ -82,7 +82,6 @@ const getDiff = (first, second) => {
       valueRight: value2IsObject ? getDiff(value2, null) : value2,
     });
   }
-
   return result;
 };
 
