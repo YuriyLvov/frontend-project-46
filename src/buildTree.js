@@ -1,6 +1,13 @@
 import lodash from 'lodash';
 
-const getDiff = (first, second) => {
+const getValueRecursevly = (value1, value2) => {
+  const caseValue = value1 || value2;
+
+  // eslint-disable-next-line no-use-before-define
+  return lodash.isPlainObject(caseValue) ? getDiff(caseValue, null) : caseValue;
+};
+
+function getDiff(first, second) {
   const allKeys = [...lodash.keys(first), ...lodash.keys(second)];
   const uniqueKeys = lodash.sortBy(lodash.uniq(allKeys));
 
@@ -8,59 +15,40 @@ const getDiff = (first, second) => {
     const value1 = lodash.get(first, key);
     const value2 = lodash.get(second, key);
 
-    const value1Exists = value1 !== undefined;
-    const value2Exists = value2 !== undefined;
+    const value1IsObject = lodash.isPlainObject(value1);
+    const value2IsObject = lodash.isPlainObject(value2);
 
-    const value1IsObject = lodash.isObject(value1);
-    const value2IsObject = lodash.isObject(value2);
+    const isRecursiveCall = first === null || second === null;
 
-    if (first === null || second === null) {
-      const caseValue = first === null ? value2 : value1;
-
+    if ((value1IsObject && value2IsObject) || isRecursiveCall || value1 === value2) {
       return {
         fieldName: key,
         type: 'NO_CHANGES',
-        value: lodash.isObject(caseValue) ? getDiff(caseValue, null) : caseValue,
+        value: getValueRecursevly(value1, value2),
       };
     }
 
-    if (!value1Exists || !value2Exists) {
-      const caseValue = value1Exists ? value1 : value2;
+    if (!Object.hasOwn(second, key)) {
       return {
         fieldName: key,
-        type: value1Exists ? 'LEFT_CHANGED' : 'RIGHT_CHANGED',
-        value: lodash.isObject(caseValue) ? getDiff(caseValue, null) : caseValue,
+        type: 'LEFT_CHANGED',
+        value: getValueRecursevly(value1, null),
       };
     }
 
-    if (!value1IsObject && !value2IsObject) {
-      // 100% both are primitives
-      return value1 === value2 ? {
-        fieldName: key,
-        type: 'NO_CHANGES',
-        value: value1,
-      } : {
-        fieldName: key,
-        type: 'BOTH_CHANGED',
-        valueLeft: value1,
-        valueRight: value2,
-      };
-    }
-
-    if (value1IsObject && value2IsObject) {
-      // 100% both are objects
+    if (!Object.hasOwn(first, key)) {
       return {
         fieldName: key,
-        type: 'NO_CHANGES',
-        value: getDiff(value1, value2),
+        type: 'RIGHT_CHANGED',
+        value: getValueRecursevly(value2, null),
       };
     }
 
     return {
       fieldName: key,
       type: 'BOTH_CHANGED',
-      valueLeft: value1IsObject ? getDiff(value1, null) : value1,
-      valueRight: value2IsObject ? getDiff(value2, null) : value2,
+      valueLeft: getValueRecursevly(value1, null),
+      valueRight: getValueRecursevly(value2, null),
     };
   });
 
