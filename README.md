@@ -4,6 +4,7 @@
 [![Actions Status](https://github.com/YuriyLvov/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/YuriyLvov/frontend-project-46/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/234cc23f9d26986e06c2/maintainability)](https://codeclimate.com/github/YuriyLvov/frontend-project-46/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/234cc23f9d26986e06c2/test_coverage)](https://codeclimate.com/github/YuriyLvov/frontend-project-46/test_coverage)
+[![Project test & build](https://github.com/YuriyLvov/frontend-project-46/actions/workflows/node.yml/badge.svg)](https://github.com/YuriyLvov/frontend-project-46/actions/workflows/node.yml)
 
 ### Difference calculator
 Generator of difference is the CLI programm that generate difference between two files.
