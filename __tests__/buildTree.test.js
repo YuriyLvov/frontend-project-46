@@ -1,5 +1,4 @@
 import buildTree from '../src/buildTree.js';
-import stylish from '../src/formatter/stylish.js';
 
 describe('buildTree', () => {
   describe('with changes', () => {
