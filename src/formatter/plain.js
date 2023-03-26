@@ -16,9 +16,7 @@ const plain = (diff, path = '') => {
   for (let i = 0; i < diff.length; i += 1) {
     const diffNode = diff[i];
     const pathToDiff = [path, diffNode.fieldName].filter((element) => Boolean(element)).join('.');
-    // console.log('pathToDiff', pathToDiff);
-    // console.log('diffNode.type', diffNode.type);
-    // console.log('diffNode.value', diffNode.value);
+
     if (diffNode.type === 'NO_CHAGES' && !lodash.isObject(diffNode.value)) {
       continue;
     }
@@ -38,8 +36,8 @@ const plain = (diff, path = '') => {
       result += '\n';
     }
   }
-  // console.log('result', result);
-  return result;
+
+  return result.trim();
 };
 
 export default plain;
