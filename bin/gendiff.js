@@ -14,6 +14,8 @@ cli
     const { format } = cli.opts();
     const diff = gendiff(filepath1, filepath2, format);
 
+    console.log(diff);
+
     return diff;
   })
   .version('0.0.1');
