@@ -19,8 +19,7 @@ const getDiff = (first, second) => {
     const value1 = lodash.get(first, key);
     const value2 = lodash.get(second, key);
 
-    const value1Exists = value1 !== undefined;
-    const value2Exists = value2 !== undefined; const value1IsObject = lodash.isObject(value1);
+    const value1IsObject = lodash.isObject(value1);
     const value2IsObject = lodash.isObject(value2);
 
     if (
@@ -35,10 +34,10 @@ const getDiff = (first, second) => {
       };
     }
 
-    if (!value1Exists || !value2Exists) {
+    if (!Object.hasOwn(first, key) || !Object.hasOwn(second, key)) {
       return {
         fieldName: key,
-        type: value1Exists ? 'LEFT_CHANGED' : 'RIGHT_CHANGED',
+        type: Object.hasOwn(first, key) ? 'LEFT_CHANGED' : 'RIGHT_CHANGED',
         value: getValueRecursevly(value1, value2),
       };
     }
