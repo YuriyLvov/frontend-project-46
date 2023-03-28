@@ -1,16 +1,6 @@
-import fs from 'fs';
-import path from 'path';
-import process from 'process';
 import yaml from 'js-yaml';
 
-const parsers = (filepath) => {
-  const cwd = process.cwd();
-  const pathToFile = path.resolve(cwd, filepath);
-
-  const file = fs.readFileSync(pathToFile, { encoding: 'utf-8' });
-
-  const extension = path.extname(pathToFile);
-
+const parsers = (file, extension) => {
   if (extension === '.json') {
     return JSON.parse(file);
   } if (extension === '.yml' || extension === '.yaml') {
