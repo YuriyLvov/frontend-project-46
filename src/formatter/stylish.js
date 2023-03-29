@@ -23,22 +23,24 @@ const stylish = (diff, padding = 0) => {
       const valueFormatted = lodash.isObject(value)
         ? stylish(value, padding + 1)
         : value;
-      const abc = stringify(`  - ${fieldName}: ${valueFormatted}\n`, ' ', padding);
-      return `${acc}${abc}`;
+      const line = stringify(`  - ${fieldName}: ${valueFormatted}\n`, ' ', padding);
+      return `${acc}${line}`;
     }
 
     if (type === 'RIGHT_CHANGED') {
       const valueFormatted = lodash.isObject(value)
         ? stylish(value, padding + 1)
         : value;
-      return `${acc}${spacesIndent}  + ${fieldName}: ${valueFormatted}\n`;
+      const line = stringify(`  + ${fieldName}: ${valueFormatted}\n`, ' ', padding);
+      return `${acc}${line}`;
     }
 
     if (type === 'NO_CHANGES') {
       const valueFormatted = lodash.isObject(value)
         ? stylish(value, padding + 1)
         : value;
-      return `${acc}${spacesIndent}    ${fieldName}: ${valueFormatted}\n`;
+      const line = stringify(`    ${fieldName}: ${valueFormatted}\n`, ' ', padding);
+      return `${acc}${line}`;
     }
 
     if (type === 'BOTH_CHANGED') {
@@ -48,7 +50,10 @@ const stylish = (diff, padding = 0) => {
       const valueRightFormatted = lodash.isObject(valueRight)
         ? stylish(valueRight, padding + 1)
         : valueRight;
-      return `${acc}${spacesIndent}  - ${fieldName}: ${valueLeftFormatted}\n${spacesIndent}  + ${fieldName}: ${valueRightFormatted}\n`;
+      const lineMinus = stringify(`  - ${fieldName}: ${valueLeftFormatted}\n`, ' ', padding);
+      const linePlus = stringify(`  + ${fieldName}: ${valueRightFormatted}\n`, ' ', padding);
+
+      return `${acc}${lineMinus}${linePlus}`;
     }
 
     return acc;
