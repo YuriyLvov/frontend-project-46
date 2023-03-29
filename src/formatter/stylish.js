@@ -1,9 +1,14 @@
 import lodash from 'lodash';
 
 const spacesPaddingCount = 4;
+const getIndent = (replacer, spacesCount = 0) => replacer.repeat(spacesCount * spacesPaddingCount);
+const stringify = (value, replacer = ' ', spacesCount = 1) => {
+  const spacesIndent = getIndent(replacer, spacesCount);
+  return `${spacesIndent}${value}`;
+};
 
 const stylish = (diff, padding = 0) => {
-  const spacesPadding = ' '.repeat(padding * spacesPaddingCount);
+  const spacesIndent = getIndent(' ', padding);
 
   const result = diff.reduce((acc, diffNode) => {
     const {
@@ -18,21 +23,22 @@ const stylish = (diff, padding = 0) => {
       const valueFormatted = lodash.isObject(value)
         ? stylish(value, padding + 1)
         : value;
-      return `${acc}${spacesPadding}  - ${fieldName}: ${valueFormatted}\n`;
+      const abc = stringify(`  - ${fieldName}: ${valueFormatted}\n`, ' ', padding);
+      return `${acc}${abc}`;
     }
 
     if (type === 'RIGHT_CHANGED') {
       const valueFormatted = lodash.isObject(value)
         ? stylish(value, padding + 1)
         : value;
-      return `${acc}${spacesPadding}  + ${fieldName}: ${valueFormatted}\n`;
+      return `${acc}${spacesIndent}  + ${fieldName}: ${valueFormatted}\n`;
     }
 
     if (type === 'NO_CHANGES') {
       const valueFormatted = lodash.isObject(value)
         ? stylish(value, padding + 1)
         : value;
-      return `${acc}${spacesPadding}    ${fieldName}: ${valueFormatted}\n`;
+      return `${acc}${spacesIndent}    ${fieldName}: ${valueFormatted}\n`;
     }
 
     if (type === 'BOTH_CHANGED') {
@@ -42,13 +48,13 @@ const stylish = (diff, padding = 0) => {
       const valueRightFormatted = lodash.isObject(valueRight)
         ? stylish(valueRight, padding + 1)
         : valueRight;
-      return `${acc}${spacesPadding}  - ${fieldName}: ${valueLeftFormatted}\n${spacesPadding}  + ${fieldName}: ${valueRightFormatted}\n`;
+      return `${acc}${spacesIndent}  - ${fieldName}: ${valueLeftFormatted}\n${spacesIndent}  + ${fieldName}: ${valueRightFormatted}\n`;
     }
 
     return acc;
   }, '');
 
-  return `{\n${result}${spacesPadding}}`;
+  return `{\n${result}${spacesIndent}}`;
 };
 
 export default stylish;
