@@ -10,6 +10,15 @@ const stringify = (value, replacer = ' ', spacesCount = 1) => {
 const stylish = (diff, padding = 0) => {
   const spacesIndent = getIndent(' ', padding);
 
+  const getLine = (fieldName, value, prefix) => {
+    const valueFormatted = lodash.isObject(value)
+      ? stylish(value, padding + 1)
+      : value;
+    const line = stringify(`  ${prefix} ${fieldName}: ${valueFormatted}\n`, ' ', padding);
+
+    return line;
+  };
+
   const result = diff.reduce((acc, diffNode) => {
     const {
       fieldName,
@@ -20,38 +29,23 @@ const stylish = (diff, padding = 0) => {
     } = diffNode;
 
     if (type === 'LEFT_CHANGED') {
-      const valueFormatted = lodash.isObject(value)
-        ? stylish(value, padding + 1)
-        : value;
-      const line = stringify(`  - ${fieldName}: ${valueFormatted}\n`, ' ', padding);
+      const line = getLine(fieldName, value, '-');
       return `${acc}${line}`;
     }
 
     if (type === 'RIGHT_CHANGED') {
-      const valueFormatted = lodash.isObject(value)
-        ? stylish(value, padding + 1)
-        : value;
-      const line = stringify(`  + ${fieldName}: ${valueFormatted}\n`, ' ', padding);
+      const line = getLine(fieldName, value, '+');
       return `${acc}${line}`;
     }
 
     if (type === 'NO_CHANGES') {
-      const valueFormatted = lodash.isObject(value)
-        ? stylish(value, padding + 1)
-        : value;
-      const line = stringify(`    ${fieldName}: ${valueFormatted}\n`, ' ', padding);
+      const line = getLine(fieldName, value, ' ');
       return `${acc}${line}`;
     }
 
     if (type === 'BOTH_CHANGED') {
-      const valueLeftFormatted = lodash.isObject(valueLeft)
-        ? stylish(valueLeft, padding + 1)
-        : valueLeft;
-      const valueRightFormatted = lodash.isObject(valueRight)
-        ? stylish(valueRight, padding + 1)
-        : valueRight;
-      const lineMinus = stringify(`  - ${fieldName}: ${valueLeftFormatted}\n`, ' ', padding);
-      const linePlus = stringify(`  + ${fieldName}: ${valueRightFormatted}\n`, ' ', padding);
+      const lineMinus = getLine(fieldName, valueLeft, '-');
+      const linePlus = getLine(fieldName, valueRight, '+');
 
       return `${acc}${lineMinus}${linePlus}`;
     }
