@@ -1,13 +1,13 @@
 import lodash from 'lodash';
 
-const getFormattedValue = (value) => {
+const stringify = (value) => {
   if (lodash.isString(value)) {
     return `'${value}'`;
   } if (lodash.isObject(value)) {
     return '[complex value]';
   }
 
-  return value;
+  return String(value);
 };
 
 function plain(diff, path = '') {
@@ -25,7 +25,7 @@ function plain(diff, path = '') {
     }
 
     if (type === 'RIGHT_CHANGED') {
-      return `${acc}Property '${pathToDiff}' was added with value: ${getFormattedValue(value)}\n`;
+      return `${acc}Property '${pathToDiff}' was added with value: ${stringify(value)}\n`;
     }
 
     if (type === 'NO_CHANGES') {
@@ -34,7 +34,7 @@ function plain(diff, path = '') {
     }
 
     if (type === 'BOTH_CHANGED') {
-      return `${acc}Property '${pathToDiff}' was updated. From ${getFormattedValue(valueLeft)} to ${getFormattedValue(valueRight)}\n`;
+      return `${acc}Property '${pathToDiff}' was updated. From ${stringify(valueLeft)} to ${stringify(valueRight)}\n`;
     }
     return acc;
   }, '').trim();
