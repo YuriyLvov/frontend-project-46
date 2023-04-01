@@ -11,28 +11,30 @@ const getFormattedValue = (value) => {
 };
 
 function plain(diff, path = '') {
-  return diff.reduce((acc, diffNode) => {
-    const pathToDiff = [path, diffNode.fieldName].filter(Boolean).join('.');
+  return diff.reduce((acc, {
+    fieldName, type, value, valueLeft, valueRight,
+  }) => {
+    const pathToDiff = [path, fieldName].filter(Boolean).join('.');
 
-    if (diffNode.type === 'NO_CHANGES' && typeof diffNode.value !== 'object') {
+    if (type === 'NO_CHANGES' && typeof value !== 'object') {
       return acc;
     }
 
-    if (diffNode.type === 'LEFT_CHANGED') {
+    if (type === 'LEFT_CHANGED') {
       return `${acc}Property '${pathToDiff}' was removed\n`;
     }
 
-    if (diffNode.type === 'RIGHT_CHANGED') {
-      return `${acc}Property '${pathToDiff}' was added with value: ${getFormattedValue(diffNode.value)}\n`;
+    if (type === 'RIGHT_CHANGED') {
+      return `${acc}Property '${pathToDiff}' was added with value: ${getFormattedValue(value)}\n`;
     }
 
-    if (diffNode.type === 'NO_CHANGES') {
-      const value = plain(diffNode.value, pathToDiff);
-      return `${acc}${value}\n`;
+    if (type === 'NO_CHANGES') {
+      const valuePlain = plain(value, pathToDiff);
+      return `${acc}${valuePlain}\n`;
     }
 
-    if (diffNode.type === 'BOTH_CHANGED') {
-      return `${acc}Property '${pathToDiff}' was updated. From ${getFormattedValue(diffNode.valueLeft)} to ${getFormattedValue(diffNode.valueRight)}\n`;
+    if (type === 'BOTH_CHANGED') {
+      return `${acc}Property '${pathToDiff}' was updated. From ${getFormattedValue(valueLeft)} to ${getFormattedValue(valueRight)}\n`;
     }
     return acc;
   }, '').trim();
