@@ -3,7 +3,7 @@ import path from 'path';
 import process from 'process';
 import parsers from './parsers.js';
 import buildTree from './buildTree.js';
-import getFormatter from './formatter/index.js';
+import format from './formatter/index.js';
 
 const gendiff = (filepath1, filepath2, formatName = 'stylish') => {
   const cwd = process.cwd();
@@ -20,9 +20,8 @@ const gendiff = (filepath1, filepath2, formatName = 'stylish') => {
   const data1 = parsers(file1, extension1);
   const data2 = parsers(file2, extension2);
 
-  const formatter = getFormatter(formatName);
   const diff = buildTree(data1, data2);
-  const result = formatter(diff);
+  const result = format(diff, formatName);
 
   return result;
 };
