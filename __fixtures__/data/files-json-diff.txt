@@ -1,0 +1,1 @@
+[{"fieldName":"follow","type":"LEFT_CHANGED"},{"fieldName":"host","type":"NO_CHANGES","value":"hexlet.io"},{"fieldName":"proxy","type":"LEFT_CHANGED","value":"123.234.53.22"},{"fieldName":"timeout","type":"BOTH_CHANGED","valueLeft":50,"valueRight":20},{"fieldName":"verbose","type":"RIGHT_CHANGED","value":true}]
