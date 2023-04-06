@@ -9,7 +9,7 @@ describe('gendiff comp', () => {
   it('should use correct parser for JSON', () => {
     const pathToFile = path.resolve(cwd, '__fixtures__/fixtures.json');
     const file = fs.readFileSync(pathToFile, { encoding: 'utf-8' });
-    const extension = path.extname(pathToFile);
+    const extension = path.extname(pathToFile).substring(1);
 
     const result = parsers(file, extension);
 
@@ -21,7 +21,7 @@ describe('gendiff comp', () => {
   it('should use correct parser for YAML', () => {
     const pathToFile = path.resolve(cwd, '__fixtures__/fixtures.yaml');
     const file = fs.readFileSync(pathToFile, { encoding: 'utf-8' });
-    const extension = path.extname(pathToFile);
+    const extension = path.extname(pathToFile).substring(1);
 
     const result = parsers(file, extension);
 
@@ -33,7 +33,7 @@ describe('gendiff comp', () => {
   it('should use correct parser for YML', () => {
     const pathToFile = path.resolve(cwd, '__fixtures__/fixtures.yml');
     const file = fs.readFileSync(pathToFile, { encoding: 'utf-8' });
-    const extension = path.extname(pathToFile);
+    const extension = path.extname(pathToFile).substring(1);
 
     const result = parsers(file, extension);
 
@@ -45,7 +45,7 @@ describe('gendiff comp', () => {
   it('should return an empty object if extension unrecognized', () => {
     const pathToFile = path.resolve(cwd, '__fixtures__/fixtures.kokojumbo');
     const file = fs.readFileSync(pathToFile, { encoding: 'utf-8' });
-    const extension = path.extname(pathToFile);
+    const extension = path.extname(pathToFile).substring(1);
 
     const result = parsers(file, extension);
     expect(result).toEqual({});
