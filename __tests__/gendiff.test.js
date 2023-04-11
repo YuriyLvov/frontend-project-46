@@ -1,23 +1,31 @@
 import fs from 'fs';
+import { fileURLToPath } from 'url';
+import path, { dirname } from 'path';
 import gendiff from '../src/index.js';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', 'data', filename);
+const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
+
 describe('gendiff', () => {
-  const jsonFile1Path1 = '__fixtures__/data/file1.json';
-  const jsonFile2Path2 = '__fixtures__/data/file2.json';
-  const yamlFile1Path1 = '__fixtures__/data/file1.yaml';
-  const yamlFile2Path2 = '__fixtures__/data/file2.yaml';
+  const jsonFile1Path1 = getFixturePath('file1.json');
+  const jsonFile2Path2 = getFixturePath('file2.json');
+  const yamlFile1Path1 = getFixturePath('file1.yaml');
+  const yamlFile2Path2 = getFixturePath('file2.yaml');
 
-  const jsonFileTree1Path1 = '__fixtures__/data/filetree1.json';
-  const jsonFileTree2Path2 = '__fixtures__/data/filetree2.json';
-  const yamlFileTree1Path1 = '__fixtures__/data/filetree1.yaml';
-  const yamlFileTree2Path2 = '__fixtures__/data/filetree2.yaml';
+  const jsonFileTree1Path1 = getFixturePath('filetree1.json');
+  const jsonFileTree2Path2 = getFixturePath('filetree2.json');
+  const yamlFileTree1Path1 = getFixturePath('filetree1.yaml');
+  const yamlFileTree2Path2 = getFixturePath('filetree2.yaml');
 
-  const filesStylishDiffExpectation = fs.readFileSync('__fixtures__/data/files-stylish-diff.txt', { encoding: 'utf-8' });
-  const filesTreeStylishDiffExpectation = fs.readFileSync('__fixtures__/data/files-stylish-tree-diff.txt', { encoding: 'utf-8' });
-  const filesPlainDiffExpectation = fs.readFileSync('__fixtures__/data/files-plain-diff.txt', { encoding: 'utf-8' });
-  const filesTreePlainDiffExpectation = fs.readFileSync('__fixtures__/data/files-tree-plain-diff.txt', { encoding: 'utf-8' });
-  const filesJsonDiffExpectation = fs.readFileSync('__fixtures__/data/files-json-diff.txt', { encoding: 'utf-8' });
-  const filesTreeJsonDiffExpectation = fs.readFileSync('__fixtures__/data/files-tree-json-diff.txt', { encoding: 'utf-8' });
+  const filesStylishDiffExpectation = readFile('files-stylish-diff.txt');
+  const filesTreeStylishDiffExpectation = readFile('files-stylish-tree-diff.txt');
+  const filesPlainDiffExpectation = readFile('files-plain-diff.txt');
+  const filesTreePlainDiffExpectation = readFile('files-tree-plain-diff.txt');
+  const filesJsonDiffExpectation = readFile('files-json-diff.txt');
+  const filesTreeJsonDiffExpectation = readFile('files-tree-json-diff.txt');
 
   describe('stylish', () => {
     it('should return appropriate value for json files', () => {
